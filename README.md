@@ -1,1 +1,1 @@
-bukhvalov ivan
+bukhvalov ivan - лох
