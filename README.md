@@ -1,2 +1,2 @@
-bukhvalov ivan - лох
-kuznetsov anton - ne loh
+bukhvalov ivan
+kuznetsov anton
