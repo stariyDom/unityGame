@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float running_speed;
     [SerializeField] private float jump_speed;
-    //[SerializeField] private int jumpCount;
+    [SerializeField] private int jumpCount;
     private Rigidbody2D body;
     private Animator anim;
     private bool grounded;
@@ -16,11 +16,12 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         running_speed = 3;
         jump_speed = 3;
-        //jumpCount = 2;
+        jumpCount = 2;
     }
  
     private void Update()
     {
+        CheckGround();
         float horizontalInput = Input.GetAxis("Horizontal");
         //if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
             //horizontalInput = 0;
@@ -32,24 +33,25 @@ public class PlayerMovement : MonoBehaviour
         else if (horizontalInput < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
 
-        if (Input.GetKey(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && (grounded || jumpCount>0))
         {
             Jump();
         }
 
         if (body.velocity.y < 0)
             Drop();
- 
+
         //sets animation parameters
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", grounded);
+        
     }
  
     private void Jump()
     {
         body.velocity = new Vector2(body.velocity.x, jump_speed);
         anim.SetTrigger("jump");
-        //jumpCount = jumpCount - 1;
+        jumpCount--;
         grounded = false;
     }
     
@@ -59,12 +61,12 @@ public class PlayerMovement : MonoBehaviour
         grounded = false;
     }
  
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
+    private void CheckGround() {
+        Colider2D collider = Physics2D.OverlapCircleAll(transform.position, 0.3f);
+        if (collider.Length > 1)
         {
             grounded = true;
-            //jumpCount = 2;
+            jumpCount = 2;
         }
     }
 }
