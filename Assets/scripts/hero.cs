@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer sprite;
     
-    private bool grounded;
+    private bool isTouchSurface;
 
     private void Awake()
     {   
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         body.velocity = new Vector2(horizontalInput * runningSpeed, body.velocity.y);
         
         
-        if (Input.GetKeyDown(KeyCode.Space) && (grounded || jumpCount>0))
+        if (Input.GetKeyDown(KeyCode.Space) && (isTouchSurface || jumpCount>0))
         {
             Jump();
         }
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     {
         body.velocity = new Vector2(body.velocity.x, jumpSpeed);
         jumpCount--;
-        grounded = false;
+        isTouchSurface = false;
     }
     
 
@@ -49,8 +49,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            if (Physics2D.OverlapCircleAll(transform.position, 0.1f).Length > 1) jumpCount = 2; else jumpCount = 1;
-            grounded = true;
+            Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+            bool isGrounded = col.Length > 1;
+            jumpCount = isGrounded ? 2 : 1;
+            isTouchSurface = true;
         }
     }
     
@@ -58,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            grounded = false;
+            isTouchSurface = false;
         }
     }
 }
