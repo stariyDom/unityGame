@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         running_speed = 3;
-        jump_speed = 3;
+        jump_speed = 30;
         jumpCount = 2;
     }
  
@@ -24,10 +24,14 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         body.velocity = new Vector2(horizontalInput * running_speed, body.velocity.y);
-
-        if (grounded)
-        {
-            jumpCount = 2;
+        
+        if (grounded) {
+            jumpCount = 1;
+             
+            if (Physics2D.OverlapCircleAll(transform.position, 0.3f).Length > 1)
+            {
+                jumpCount = 2;
+            };
         }
         
         if (Input.GetKeyDown(KeyCode.Space) && (grounded || jumpCount>0))
