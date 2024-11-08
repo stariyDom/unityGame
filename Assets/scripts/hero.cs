@@ -2,8 +2,8 @@ using UnityEngine;
  
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float running_speed;
-    [SerializeField] private float jump_speed;
+    [SerializeField] private float runningSpeed;
+    [SerializeField] private float jumpSpeed;
     [SerializeField] private int jumpCount;
     private Rigidbody2D body;
     private SpriteRenderer sprite;
@@ -15,24 +15,16 @@ public class PlayerMovement : MonoBehaviour
         //Grabs references for rigidbody and animator from game object.
         body = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        running_speed = 3;
-        jump_speed = 30;
+        runningSpeed = 3;
+        jumpSpeed = 6;
         jumpCount = 2;
     }
  
     private void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        body.velocity = new Vector2(horizontalInput * running_speed, body.velocity.y);
+        body.velocity = new Vector2(horizontalInput * runningSpeed, body.velocity.y);
         
-        if (grounded) {
-            jumpCount = 1;
-             
-            if (Physics2D.OverlapCircleAll(transform.position, 0.3f).Length > 1)
-            {
-                jumpCount = 2;
-            };
-        }
         
         if (Input.GetKeyDown(KeyCode.Space) && (grounded || jumpCount>0))
         {
@@ -46,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
  
     private void Jump()
     {
-        body.velocity = new Vector2(body.velocity.x, jump_speed);
+        body.velocity = new Vector2(body.velocity.x, jumpSpeed);
         jumpCount--;
         grounded = false;
     }
@@ -57,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
+            if (Physics2D.OverlapCircleAll(transform.position, 0.1f).Length > 1) jumpCount = 2; else jumpCount = 1;
             grounded = true;
         }
     }
