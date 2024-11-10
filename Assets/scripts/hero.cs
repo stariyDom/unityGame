@@ -5,15 +5,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runningSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private int jumpCount;
-
     [SerializeField] private bool isGrounded;
-    
+    [SerializeField] private int lives;
     private Rigidbody2D body;
     private SpriteRenderer sprite;
     private Animator animator;
-    
-    
-     
+
+
+
     private bool isTouchSurface;
 
     private void Awake()
@@ -25,10 +24,16 @@ public class PlayerMovement : MonoBehaviour
         runningSpeed = 3;
         jumpSpeed = 6;
         jumpCount = 2;
+        lives = 4;
     }
  
     private void Update()
     {
+        if (lives <= 0)
+        {
+            animator.SetTrigger("death");
+            return;
+        }
         float horizontalInput = Input.GetAxis("Horizontal");
         body.velocity = new Vector2(horizontalInput * runningSpeed, body.velocity.y);
         
@@ -40,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateAnimator();
         isGrounded = isOnGround();
-        
     }
  
     private void Jump()
@@ -53,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateAnimator()
     {
+        animator.SetInteger("hp_absent", 4 - lives);
         animator.SetBool("run" , Input.GetAxis("Horizontal") != 0);
         animator.SetBool("grounded", isOnGround());
         if (body.velocity.y < 0)
