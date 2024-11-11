@@ -1,0 +1,4 @@
+repository "Enemy_01@Reewert_3gor@cloud"
+  path "/"
+    br "/main"
+    co "/main"
