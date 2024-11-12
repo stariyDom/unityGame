@@ -1,59 +1,110 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-using UnityEngine.U2D;
-public class Character : MonoBehaviour
+
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 3f; //скорость движения
-    [SerializeField] private int lives = 3; //количество жизней
-    [SerializeField] private float jumpForce = 15f; //сила прыжка
-    private bool isGrounded = false;
-
-    private Rigidbody2D rb;
+    [SerializeField] private float runningSpeed;
+    [SerializeField] private float jumpSpeed;
+    [SerializeField] private int jumpCount;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private int lives;
+    private Rigidbody2D body;
     private SpriteRenderer sprite;
+    private Animator hpAnim;
+    private Animator spriteAnim;
+    private bool isAlive;
 
+
+
+    private bool isTouchSurface;
 
     private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
+    {   
+        //Grabs references for rigidbody and animator from game object.
+        body = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        spriteAnim = GetComponentsInChildren<Animator>()[0]; 
+        hpAnim = GetComponentsInChildren<Animator>()[1]; 
+        
+        runningSpeed = 3;
+        jumpSpeed = 6;
+        jumpCount = 2;
+        lives = 4;
+
+        isAlive = true;
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateAnimator();
     }
 
     private void Update()
     {
-        if (Input.GetButton("Horizontal"))
-            Run();
-        if (Input.GetButtonDown("Jump"))
+        
+        if (Input.GetKeyDown(KeyCode.K)) --lives;
+        
+        if (lives <= 0 )
+        {
+            if (isAlive)
+            {
+                spriteAnim.SetTrigger("death");
+                isAlive = !true;
+            }
+            return;
+        }
+        float horizontalInput = Input.GetAxis("Horizontal");
+        body.velocity = new Vector2(horizontalInput * runningSpeed, body.velocity.y);
+        
+        
+        if (Input.GetKeyDown(KeyCode.Space) && (isTouchSurface || jumpCount>0))
+        {
             Jump();
-    }
-    private void Run() 
-    { 
-        Vector3 dir = transform.right * Input.GetAxis("Horizontal");
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed* Time.deltaTime);
-        sprite.flipX = dir.x < 0.0f;
-    }
+        }
 
+        isGrounded = isOnGround();
+    }
+ 
     private void Jump()
     {
-        rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+        spriteAnim.SetTrigger("jump");
+        body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+        jumpCount--;
+        isTouchSurface = false;
     }
-    private void CheckGround()
+
+    private void UpdateAnimator()
     {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.3f);
-        isGrounded = collider.Length > 1;
+        hpAnim.SetInteger("hp_absent", 4 - lives);
+        spriteAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
+        spriteAnim.SetBool("grounded", isOnGround());
+        if (body.velocity.y < 0)
+            spriteAnim.SetTrigger("drop");
+        if (body.velocity.magnitude > 0.01)
+            transform.localScale = body.velocity.x > 0 ? Vector3.one : new Vector3(-1,1,1);
     }
 
-    public void GetDamage()
+
+    private bool isOnGround()
     {
-        lives -= 1;
-        Debug.Log(lives);
+        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+        return col.Length > 1;
     }
-
-}
-
-public enum States
-{
-    idle,
-    run
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            bool isGrounded = isOnGround();
+            jumpCount = isGrounded ? 2 : 1;
+            isTouchSurface = true;
+        }
+    }
+    
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isTouchSurface = false;
+        }
+    }
 }
