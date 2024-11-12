@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         float horizontalInput = Input.GetAxis("Horizontal");
-        body.velocity = new Vector2(horizontalInput * runningSpeed, body.velocity.y);
+        body.linearVelocity = new Vector2(horizontalInput * runningSpeed, body.linearVelocity.y);
         
         
         if (Input.GetKeyDown(KeyCode.Space) && (isTouchSurface || jumpCount>0))
@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         spriteAnim.SetTrigger("jump");
-        body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpSpeed);
         jumpCount--;
         isTouchSurface = false;
     }
@@ -78,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
         hpAnim.SetInteger("hp_absent", 4 - lives);
         spriteAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
         spriteAnim.SetBool("grounded", isOnGround());
-        if (body.velocity.y < 0)
+        if (body.linearVelocity.y < 0)
             spriteAnim.SetTrigger("drop");
-        if (body.velocity.magnitude > 0.01)
-            transform.localScale = body.velocity.x > 0 ? Vector3.one : new Vector3(-1,1,1);
+        if (body.linearVelocity.magnitude > 0.01)
+            transform.localScale = body.linearVelocity.x > 0 ? Vector3.one : new Vector3(-1,1,1);
     }
 
 

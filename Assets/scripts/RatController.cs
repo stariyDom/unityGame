@@ -2,88 +2,90 @@ using UnityEngine;
 
 public class RatController : MonoBehaviour
 {
-    public float speed = 2f; // Скорость
-    public float moveDistance = 25f; // Дистанция, на которую крыса будет двигаться вправо и влево 
+    public float speed = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float moveDistance = 25f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ 
 
-    private Vector3 startPosition; // Начальная позиция
-    private Vector3 targetPosition; // Целевая позиция
+    private Vector3 startPosition; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private Vector3 targetPosition; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private Vector3 scale;
 
-    //если от 2х касаний
-    //private int hitCount = 0; // Счетчик столкновений
-    //public int maxHits = 2; // Макс кол-во столкновений до смерти
-    //если от хр
-    private float health = 20f; // Здоровье крысы
+    //пїЅпїЅпїЅпїЅ пїЅпїЅ 2пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    //private int hitCount = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    //public int maxHits = 2; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
+    private float health = 20f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
     private SpriteRenderer spriteRenderer; 
-
+    
     void Start()
     {
-        startPosition = transform.position; // Запоминаем начальную позицию
-        targetPosition = startPosition + Vector3.right * moveDistance; // Устанавливаем целевую позицию
+        scale = transform.localScale;
+        startPosition = transform.position; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        targetPosition = startPosition + Vector3.right * moveDistance; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
     void Update()
     {
-        // Двигаем крысa
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅa
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        // Проверка на достжение целевой позиции
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            // Меняем целевую позицию
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             targetPosition = targetPosition == startPosition ? startPosition + Vector3.right * moveDistance : startPosition;
         }
 
-        // Изменяем спрайт в зависимости от направления (зеркалим его если надо)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
         if (targetPosition.x > transform.position.x)
         {
-            // Вправо
-            transform.localScale = new Vector3(1, 1, 1); // Масштаб 1 по оси X
+            // пїЅпїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = scale; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 пїЅпїЅ пїЅпїЅпїЅ X
         }
         else
         {
-            // Влево
-            transform.localScale = new Vector3(-1, 1, 1); // Масштаб -1 по оси X
+            // пїЅпїЅпїЅпїЅпїЅ
+            transform.localScale = new Vector3(-scale.x, scale.y, scale.z); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ -1 пїЅпїЅ пїЅпїЅпїЅ X
         }
     }
     /*/
-    //Увеличение кол столкновений с игроком и следуюший от этого урон
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) // Проверка на столкновение крыса с игроком
+        if (collision.gameObject.CompareTag("Player")) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         {
-            hitCount++; // Увеличиваем счетчик
+            hitCount++; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             Debug.Log("Rat hit! Count: " + hitCount);
 
-            // Проверка на достижение макс кол-ва столкновений
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (hitCount >= maxHits)
             {
                 Die(); 
             }
             else
             {
-                GetDamage(10f); // Получаем 10 урона, если еще не достигли максимума
+                GetDamage(10f); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 10 пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
     private void GetDamage(float damage)
     {
-        // Логика получения урона...?
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ...?
         Debug.Log("Rat took damage: " + damage);
     }
     /*/
 
-    //урон от оружия
+    //пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     public void TakeDamage(float damage)
     {
-        health -= damage; // Уменьшаем хр крысы
+        health -= damage; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         Debug.Log("Rat took damage: " + damage + ". Health remaining: " + health);
 
-        // Проверяем, хр <=0
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ <=0
         if (health <= 0)
         {
-            Die(); // хр упало до нуля
+            Die(); // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
         }
     }
 
@@ -91,7 +93,7 @@ public class RatController : MonoBehaviour
     private void Die()
     {
         Debug.Log("Rat died!");
-        // Логика для уничтожения крысы...?
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ...?
         Destroy(gameObject); 
     }
 }
