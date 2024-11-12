@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: daf2ee9d5089a8d4484ce399ce2390c1
+=======
+guid: 3f4e4e95c8b68574d812d3f76702c6e9
+>>>>>>> origin/enemy_AI
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
