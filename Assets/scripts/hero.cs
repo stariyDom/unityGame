@@ -13,10 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private Animator hpAnim;
     private Animator heroAnim;
     private SpriteRenderer backKnife;
+    private SpriteRenderer hpSprite;
     private bool isAlive;
+    private float timeImmune;
 
-
-
+    private bool isImmune;
     private bool isTouchSurface;
 
     private void Awake()
@@ -28,31 +29,66 @@ public class PlayerMovement : MonoBehaviour
 
         backKnife = GetComponentsInChildren<SpriteRenderer>()[0];
         hero = GetComponentsInChildren<SpriteRenderer>()[1];
+        hpSprite = GetComponentsInChildren<SpriteRenderer>()[2];
         
         runningSpeed = 3;
         jumpSpeed = 6;
         jumpCount = 2;
         lives = 4;
+        timeImmune = 0;
 
+        isImmune = false;
         isAlive = true;
+    }
+
+    public void PushAway(Vector3 pushFrom, float pushPower)
+    {
+        
+        if (pushPower == 0) { return; }
+
+        Vector3 pushDirection = (pushFrom - transform.position).normalized;
+        pushDirection += Vector3.up;
+
+        body.AddForce(pushDirection * pushPower);
+        
     }
 
     private void FixedUpdate()
     {
         UpdateAnimator();
-        UpdateKnifehero();
+        UpdateVisibility();
+        UpdateImmune();
     }
 
-    private void UpdateKnifehero()
+    public void UpdateImmune()
+    {
+        timeImmune -= Time.deltaTime;
+        isImmune = timeImmune > 0f;
+
+    }
+    public void TakeDamage(Vector3 from, int damage)
+    {
+        if (isImmune) return;
+        lives -= damage;
+        timeImmune = 2;
+        PushAway(from, 220f);
+    }
+
+    private void UpdateVisibility()
     {
         var knives = GameObject.FindGameObjectsWithTag("Knife");
         backKnife.enabled = knives.Length == 0;
+        
+        hpSprite.enabled = !isImmune;
     }
     private void Update()
     {
         
         if (Input.GetKeyDown(KeyCode.K)) --lives;
-        
+        //if (Input.GetMouseButtonDown(0))
+        //    PushAway(Input.mousePosition, 100f);
+
+
         if (lives <= 0 )
         {
             if (isAlive)
@@ -62,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
+        
         float horizontalInput = Input.GetAxis("Horizontal");
         body.linearVelocity = new Vector2(horizontalInput * runningSpeed, body.linearVelocity.y);
         

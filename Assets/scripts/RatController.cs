@@ -16,6 +16,7 @@ public class RatController : MonoBehaviour
     private float health = 20f; // �������� �����
 
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D body;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class RatController : MonoBehaviour
         startPosition = transform.position; // ���������� ��������� �������
         targetPosition = startPosition + Vector3.right * moveDistance; // ������������� ������� �������
         spriteRenderer = GetComponent<SpriteRenderer>();
+        body = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -57,15 +59,14 @@ public class RatController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player")) // �������� �� ������������ ����� � �������
         {
-            Debug.Log("HITTED");
             collision.collider.GetComponent<PlayerMovement>().TakeDamage(transform.position, 1);
         }
     }
 
-    private void GetDamage(float damage)
+    public void TakeDamage(Vector3 from, float damage)
     {
-        // ������ ��������� �����...?
-        Debug.Log("Rat took damage: " + damage);
+        health -= damage;
+        if (health < 0f) Destroy(gameObject);
     }
 }
 /*

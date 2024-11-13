@@ -28,7 +28,11 @@ public class knife : MonoBehaviour
         
         if (hitRecord.collider != null)
         {
-            
+            if (hitRecord.collider.CompareTag("Enemy"))
+            {
+                hitRecord.collider.GetComponent<RatController>().TakeDamage(transform.position, 10f);
+                Destroy(gameObject);
+            }
         }
         else
         {
