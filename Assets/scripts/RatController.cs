@@ -15,14 +15,14 @@ public class RatController : MonoBehaviour
     //���� �� ��
     private float health = 20f; // �������� �����
 
-    private SpriteRenderer spriteRenderer; 
-    
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         scale = transform.localScale;
         startPosition = transform.position; // ���������� ��������� �������
         targetPosition = startPosition + Vector3.right * moveDistance; // ������������� ������� �������
-        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -33,9 +33,12 @@ public class RatController : MonoBehaviour
         // �������� �� ��������� ������� �������
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            // ������ ������� �������
-            targetPosition = targetPosition == startPosition ? startPosition + Vector3.right * moveDistance : startPosition;
+            targetPosition = targetPosition == startPosition
+                ? startPosition + Vector3.right * moveDistance
+                : startPosition;
         }
+
+
 
         // �������� ������ � ����������� �� ����������� (�������� ��� ���� ����)
         if (targetPosition.x > transform.position.x)
@@ -49,51 +52,43 @@ public class RatController : MonoBehaviour
             transform.localScale = new Vector3(-scale.x, scale.y, scale.z); // ������� -1 �� ��� X
         }
     }
-    /*/
-    //���������� ��� ������������ � ������� � ��������� �� ����� ����
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) // �������� �� ������������ ����� � �������
+        if (collision.collider.CompareTag("Player")) // �������� �� ������������ ����� � �������
         {
-            hitCount++; // ����������� �������
-            Debug.Log("Rat hit! Count: " + hitCount);
-
-            // �������� �� ���������� ���� ���-�� ������������
-            if (hitCount >= maxHits)
-            {
-                Die(); 
-            }
-            else
-            {
-                GetDamage(10f); // �������� 10 �����, ���� ��� �� �������� ���������
-            }
+            Debug.Log("HITTED");
+            collision.collider.GetComponent<PlayerMovement>().TakeDamage(transform.position, 1);
         }
     }
+
     private void GetDamage(float damage)
     {
         // ������ ��������� �����...?
         Debug.Log("Rat took damage: " + damage);
     }
-    /*/
+}
+/*
 
-    //���� �� ������
-    public void TakeDamage(float damage)
+//���� �� ������
+public void TakeDamage(float damage)
+{
+    health -= damage; // ��������� �� �����
+    Debug.Log("Rat took damage: " + damage + ". Health remaining: " + health);
+
+    // ���������, �� <=0
+    if (health <= 0)
     {
-        health -= damage; // ��������� �� �����
-        Debug.Log("Rat took damage: " + damage + ". Health remaining: " + health);
-
-        // ���������, �� <=0
-        if (health <= 0)
-        {
-            Die(); // �� ����� �� ����
-        }
-    }
-
-
-    private void Die()
-    {
-        Debug.Log("Rat died!");
-        // ������ ��� ����������� �����...?
-        Destroy(gameObject); 
+        Die(); // �� ����� �� ����
     }
 }
+
+
+private void Die()
+{
+    Debug.Log("Rat died!");
+    // ������ ��� ����������� �����...?
+    Destroy(gameObject);
+}
+}
+*/
