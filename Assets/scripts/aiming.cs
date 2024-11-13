@@ -8,9 +8,11 @@ public class Aiming : MonoBehaviour
     public float knifeOffset;
     public GameObject knife;
     public Transform throwPoint;
+    public int maxKnives;
     
     void Start()
     {
+        maxKnives = 1;
         offset = -90f;
     }
 
@@ -23,7 +25,11 @@ public class Aiming : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(knife, throwPoint.position, transform.rotation);
+            var knives = GameObject.FindGameObjectsWithTag("Knife");
+            if (knives.Length < maxKnives)
+            {   
+                Instantiate(knife, throwPoint.position, transform.rotation);
+            }
         }
     }
 }

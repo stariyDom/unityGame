@@ -9,9 +9,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private int lives;
     private Rigidbody2D body;
-    private SpriteRenderer sprite;
+    private SpriteRenderer hero;
     private Animator hpAnim;
-    private Animator spriteAnim;
+    private Animator heroAnim;
+    private SpriteRenderer backKnife;
     private bool isAlive;
 
 
@@ -22,9 +23,11 @@ public class PlayerMovement : MonoBehaviour
     {   
         //Grabs references for rigidbody and animator from game object.
         body = GetComponent<Rigidbody2D>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        spriteAnim = GetComponentsInChildren<Animator>()[0]; 
-        hpAnim = GetComponentsInChildren<Animator>()[1]; 
+        heroAnim = GetComponentsInChildren<Animator>()[0]; 
+        hpAnim = GetComponentsInChildren<Animator>()[1];
+
+        backKnife = GetComponentsInChildren<SpriteRenderer>()[0];
+        hero = GetComponentsInChildren<SpriteRenderer>()[1];
         
         runningSpeed = 3;
         jumpSpeed = 6;
@@ -37,8 +40,14 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateAnimator();
+        UpdateKnifehero();
     }
 
+    private void UpdateKnifehero()
+    {
+        var knives = GameObject.FindGameObjectsWithTag("Knife");
+        backKnife.enabled = knives.Length == 0;
+    }
     private void Update()
     {
         
@@ -48,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (isAlive)
             {
-                spriteAnim.SetTrigger("death");
+                heroAnim.SetTrigger("death");
                 isAlive = !true;
             }
             return;
@@ -67,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
  
     private void Jump()
     {
-        spriteAnim.SetTrigger("jump");
+        heroAnim.SetTrigger("jump");
         body.linearVelocity = new Vector2(body.linearVelocity.x, jumpSpeed);
         jumpCount--;
         isTouchSurface = false;
@@ -76,10 +85,10 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimator()
     {
         hpAnim.SetInteger("hp_absent", 4 - lives);
-        spriteAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
-        spriteAnim.SetBool("grounded", isOnGround());
+        heroAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
+        heroAnim.SetBool("grounded", isOnGround());
         if (body.linearVelocity.y < 0)
-            spriteAnim.SetTrigger("drop");
+            heroAnim.SetTrigger("drop");
         if (body.linearVelocity.magnitude > 0.01)
             transform.localScale = body.linearVelocity.x > 0 ? Vector3.one : new Vector3(-1,1,1);
     }
