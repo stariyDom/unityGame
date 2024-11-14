@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1651201715021258540, guid: 2fb571e914653324197018b8b340e439, type: 3}
       propertyPath: sceneName
-      value: Level_4
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 1651201715021258540, guid: 2fb571e914653324197018b8b340e439, type: 3}
       propertyPath: requiredKeys
