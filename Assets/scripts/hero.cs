@@ -9,50 +9,96 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isGrounded;
     [SerializeField] private int lives;
     private Rigidbody2D body;
-    private SpriteRenderer sprite;
+    private SpriteRenderer hero;
     private Animator hpAnim;
-    private Animator spriteAnim;
+    private Animator heroAnim;
+    private SpriteRenderer backKnife;
+    private SpriteRenderer hpSprite;
     private bool isAlive;
+    private float timeImmune;
 
-
-
+    private bool isImmune;
     private bool isTouchSurface;
 
     private void Awake()
     {   
         //Grabs references for rigidbody and animator from game object.
         body = GetComponent<Rigidbody2D>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        spriteAnim = GetComponentsInChildren<Animator>()[0]; 
-        hpAnim = GetComponentsInChildren<Animator>()[1]; 
+        heroAnim = GetComponentsInChildren<Animator>()[0]; 
+        hpAnim = GetComponentsInChildren<Animator>()[1];
+
+        backKnife = GetComponentsInChildren<SpriteRenderer>()[0];
+        hero = GetComponentsInChildren<SpriteRenderer>()[1];
+        hpSprite = GetComponentsInChildren<SpriteRenderer>()[2];
         
         runningSpeed = 3;
         jumpSpeed = 6;
         jumpCount = 2;
         lives = 4;
+        timeImmune = 0;
 
+        isImmune = false;
         isAlive = true;
+    }
+
+    public void PushAway(Vector3 pushFrom, float pushPower)
+    {
+        
+        if (pushPower == 0) { return; }
+
+        Vector3 pushDirection = (pushFrom - transform.position).normalized;
+        pushDirection += Vector3.up;
+
+        body.AddForce(pushDirection * pushPower);
+        
     }
 
     private void FixedUpdate()
     {
         UpdateAnimator();
+        UpdateVisibility();
+        UpdateImmune();
     }
 
+    public void UpdateImmune()
+    {
+        timeImmune -= Time.deltaTime;
+        isImmune = timeImmune > 0f;
+
+    }
+    public void TakeDamage(Vector3 from, int damage)
+    {
+        if (isImmune) return;
+        lives -= damage;
+        timeImmune = 2;
+        PushAway(from, 220f);
+    }
+
+    private void UpdateVisibility()
+    {
+        var knives = GameObject.FindGameObjectsWithTag("Knife");
+        backKnife.enabled = knives.Length == 0;
+        
+        hpSprite.enabled = !isImmune;
+    }
     private void Update()
     {
         
         if (Input.GetKeyDown(KeyCode.K)) --lives;
-        
+        //if (Input.GetMouseButtonDown(0))
+        //    PushAway(Input.mousePosition, 100f);
+
+
         if (lives <= 0 )
         {
             if (isAlive)
             {
-                spriteAnim.SetTrigger("death");
+                heroAnim.SetTrigger("death");
                 isAlive = !true;
             }
             return;
         }
+        
         float horizontalInput = Input.GetAxis("Horizontal");
         body.linearVelocity = new Vector2(horizontalInput * runningSpeed, body.linearVelocity.y);
         
@@ -67,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
  
     private void Jump()
     {
-        spriteAnim.SetTrigger("jump");
+        heroAnim.SetTrigger("jump");
         body.linearVelocity = new Vector2(body.linearVelocity.x, jumpSpeed);
         jumpCount--;
         isTouchSurface = false;
@@ -76,10 +122,10 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimator()
     {
         hpAnim.SetInteger("hp_absent", 4 - lives);
-        spriteAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
-        spriteAnim.SetBool("grounded", isOnGround());
+        heroAnim.SetBool("run" , Input.GetAxis("Horizontal") != 0);
+        heroAnim.SetBool("grounded", isOnGround());
         if (body.linearVelocity.y < 0)
-            spriteAnim.SetTrigger("drop");
+            heroAnim.SetTrigger("drop");
         if (body.linearVelocity.magnitude > 0.01)
             transform.localScale = body.linearVelocity.x > 0 ? Vector3.one : new Vector3(-1,1,1);
     }
