@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/lvl_last/Level_last.unity
     guid: e2505428365a5d542b705b4fe7c75563
+  - enabled: 1
+    path: Assets/Scenes/gameover/gameover.unity
+    guid: 029a92a52f988a84ca2c4b8378b308e8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

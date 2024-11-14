@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8358023141495935097}
   - component: {fileID: 8895036918176464188}
   - component: {fileID: 7334569605568113450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bat 2
   m_TagString: EnemyBat2
   m_Icon: {fileID: 0}
@@ -203,9 +203,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3553723275536673670}
   - component: {fileID: 5488316751570896434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bat 2
-  m_TagString: Untagged
+  m_TagString: EnemyBat2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -6909341603679877810, guid: 3f0534776b3b50d4e9226ebcfa39d4f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
