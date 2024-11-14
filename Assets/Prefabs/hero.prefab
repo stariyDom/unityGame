@@ -105,7 +105,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 3109289323316539243}
   - component: {fileID: 2291815992924863915}
   - component: {fileID: 6644823896259911162}
+  - component: {fileID: 3118276064623917666}
   m_Layer: 0
   m_Name: hero
   m_TagString: Player
@@ -226,7 +227,6 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_UsedByComposite: 0
   m_Offset: {x: -0.023169905, y: 0.5931543}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -239,6 +239,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.41050214, y: 1.1867049}
   m_EdgeRadius: 0
+--- !u!114 &3118276064623917666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443904461511076862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e3b4ac9ec1075e4a96b712d71cc12ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keys: 0
 --- !u!1 &1068638217247480781
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +332,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -459,7 +475,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -514,6 +530,7 @@ MonoBehaviour:
   knifeOffset: 0
   knife: {fileID: 2074299810696701296, guid: 3eed7f896cc939d42a4bf775ed2ec97b, type: 3}
   throwPoint: {fileID: 8822492254591661166}
+  maxKnives: 0
 --- !u!1 &6155851297445638144
 GameObject:
   m_ObjectHideFlags: 0

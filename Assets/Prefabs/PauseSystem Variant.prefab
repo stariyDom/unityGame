@@ -204,6 +204,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7064282924129324654, guid: 4233a9a0e489a0e4eb0a399f9b8b59f2, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064282924129324654, guid: 4233a9a0e489a0e4eb0a399f9b8b59f2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8878088185706026076, guid: 32ddbdea24a14a345b2fef0e0f9bd4de, type: 3}
     - target: {fileID: 8546283342233962150, guid: 4233a9a0e489a0e4eb0a399f9b8b59f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 0

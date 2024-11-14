@@ -1,15 +1,16 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
     public Transform player;
     public bool isFlipped = false;
-    public Image hpBar;
+    [SerializeField] private float health;
+    public GameObject rewardPrefab;
+
     void Start()
     {
+        health = 100f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        hpBar = GameObject.FindGameObjectWithTag("hpBar").GetComponent<Image>();
     }
 
         public void LookAtPlayer()
@@ -29,4 +30,15 @@ public class Boss : MonoBehaviour
             isFlipped = true;
         }
     }
+    public void TakeDamage(Vector3 from, float damage)
+     {
+         health -= damage;
+         if (health <= 0f) {
+             Vector3 coord = transform.position;
+             rewardPrefab.SetActive(true);
+             Destroy(gameObject);
+         }
+     }
 }
+
+
