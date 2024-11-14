@@ -30,12 +30,25 @@ public class knife : MonoBehaviour
         {
             if (hitRecord.collider.CompareTag("Enemy"))
             {
-                hitRecord.collider.GetComponent<RatController>().TakeDamage(transform.position, 10f);
+                hitRecord.collider.GetComponent<RatController>().TakeDamage( 10f);
                 Destroy(gameObject);
             }
+
+            if (hitRecord.collider.CompareTag("EnemyBat1"))
+            {
+                hitRecord.collider.GetComponent<batAI>().TakeDamage(10f);
+                Destroy(gameObject);
+            }
+            
+            if (hitRecord.collider.CompareTag("EnemyBat2"))
+            {
+                hitRecord.collider.GetComponent<batAI2>().TakeDamage(10f);
+                Destroy(gameObject);
+            }
+            
             if (hitRecord.collider.CompareTag("Boss"))
             {
-                hitRecord.collider.GetComponent<Boss>().TakeDamage(transform.position, 10f);
+                hitRecord.collider.GetComponent<Boss>().TakeDamage(10f);
                 Destroy(gameObject);
             }
         }

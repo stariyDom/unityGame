@@ -63,7 +63,7 @@ public class RatController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(Vector3 from, float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         if (health < 0f) Destroy(gameObject);
