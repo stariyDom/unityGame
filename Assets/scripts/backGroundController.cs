@@ -16,8 +16,8 @@ public class backGroundController : MonoBehaviour
     }
     private void Update()
     {
-        pos.x = player.position.x-3;
-        pos.y = player.position.y-3;
+        pos.x = player.position.x;
+        pos.y = player.position.y;
         pos.z = -5;
 
         transform.position = pos;
