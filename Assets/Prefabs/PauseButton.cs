@@ -9,7 +9,7 @@ public class PauseButton : MonoBehaviour
 
     public void OnApplicationPause(bool pause) {
         panel.SetActive(pause);
-        Time.timeScale = pause ? 1.0f : 0.0f;
+        Time.timeScale = pause ? 0f : 1f;
     }
 
     public void ExitToMenu() {
