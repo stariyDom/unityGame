@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
     public Transform player;
     public bool isFlipped = false;
-
+    public Image hpBar;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        hpBar = GameObject.FindGameObjectWithTag("hpBar").GetComponent<Image>();
     }
 
         public void LookAtPlayer()
