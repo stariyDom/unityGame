@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 391491226452642075}
   - component: {fileID: 8025445377506709413}
   - component: {fileID: 3013586060679696446}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 40
   m_Sprite: {fileID: -6665610855502669534, guid: f86ee706db9d8484c8f4a127a8c4ce58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   isFlipped: 0
+  rewardPrefab: {fileID: 0}
 --- !u!114 &3013586060679696446
 MonoBehaviour:
   m_ObjectHideFlags: 0

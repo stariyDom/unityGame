@@ -1,66 +1,14 @@
 using UnityEngine;
 
-
-//public class Boss_fly : StateMachineBehaviour
-//{
-//    public float speed = 2.5f;
-//    public float attackRange = 3f;
-//    public int damage = 10; // Урон, который наносит босс
-//    Transform player;
-//    Rigidbody2D rb;
-//    Boss boss;
-
-//    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-//    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-//    {
-//        player = GameObject.FindGameObjectWithTag("Player").transform;
-//        rb = animator.GetComponent<Rigidbody2D>();
-//        boss = animator.GetComponent<Boss>();
-//    }
-
-//    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-//    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-//    {
-//        boss.LookAtPlayer();
-
-//        Vector2 target = new Vector2(player.position.x, rb.position.y);
-//        Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
-//        rb.MovePosition(newPos);
-
-//        // Проверяем, находится ли игрок в пределах дистанции атаки
-//        if (Vector2.Distance(player.position, rb.position) <= attackRange)
-//        {
-//            animator.SetTrigger("Attack");
-//            AttackPlayer(); // Вызов метода атаки
-//        }
-//    }
-
-//    // Метод для атаки игрока
-//    private void AttackPlayer()
-//    {
-//        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>(); // Получаем компонент здоровья игрока
-//        if (playerHealth != null)
-//        {
-//            playerHealth.TakeDamage(damage); // Наносим урон игроку
-//            Debug.Log("Boss attacked the player for " + damage + " damage.");
-//        }
-//    }
-
-//    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-//    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-//    {
-//        animator.ResetTrigger("Attack");
-//    }
-//}
-
 public class Boss_fly : StateMachineBehaviour
 {
     public float speed = 2.5f;
     public float attackRange = 3f;
-    public int damage = 10; // Урон, который наносит босс
-    public float attackCooldown = 1.5f; // Время между атаками в секундах
-    private float lastAttackTime = 0f; // Время последней атаки
+    public int damage = 10; // пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    public float attackCooldown = 1.5f; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private float lastAttackTime = 0f; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
+    PlayerMovement movPlayer;
     Transform player;
     Rigidbody2D rb;
     Boss boss;
@@ -68,6 +16,7 @@ public class Boss_fly : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        movPlayer = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
         boss = animator.GetComponent<Boss>();
@@ -82,27 +31,36 @@ public class Boss_fly : StateMachineBehaviour
         Vector2 newPos = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
-        // Проверяем, находится ли игрок в пределах дистанции атаки
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         if (Vector2.Distance(player.position, rb.position) <= attackRange)
         {
-            // Проверяем, достаточно ли времени прошло с последней атаки
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             if (Time.time >= lastAttackTime + attackCooldown)
             {
                 animator.SetTrigger("Attack");
-                lastAttackTime = Time.time; // Обновляем время последней атаки
-                AttackPlayer(); // Вызов метода атаки
+                lastAttackTime = Time.time; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+                movPlayer.TakeDamage(rb.position, 1);
+                //AttackPlayer(); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
 
-    // Метод для атаки игрока
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private void AttackPlayer()
     {
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>(); // Получаем компонент здоровья игрока
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(damage); // Наносим урон игроку
+            playerHealth.TakeDamage(damage); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             Debug.Log("Boss attacked the player for " + damage + " damage.");
+        }
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player")) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        {
+            collision.collider.GetComponent<PlayerMovement>().TakeDamage(rb.position, 1);
         }
     }
 

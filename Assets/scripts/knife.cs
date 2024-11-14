@@ -33,6 +33,11 @@ public class knife : MonoBehaviour
                 hitRecord.collider.GetComponent<RatController>().TakeDamage(transform.position, 10f);
                 Destroy(gameObject);
             }
+            if (hitRecord.collider.CompareTag("Boss"))
+            {
+                hitRecord.collider.GetComponent<Boss>().TakeDamage(transform.position, 10f);
+                Destroy(gameObject);
+            }
         }
         else
         {

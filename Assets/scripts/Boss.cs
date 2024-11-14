@@ -4,9 +4,12 @@ public class Boss : MonoBehaviour
 {
     public Transform player;
     public bool isFlipped = false;
+    [SerializeField] private float health;
+    public GameObject rewardPrefab;
 
     void Start()
     {
+        health = 100f;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -27,4 +30,15 @@ public class Boss : MonoBehaviour
             isFlipped = true;
         }
     }
+    public void TakeDamage(Vector3 from, float damage)
+     {
+         health -= damage;
+         if (health <= 0f) {
+             Vector3 coord = transform.position;
+             rewardPrefab.SetActive(true);
+             Destroy(gameObject);
+         }
+     }
 }
+
+
