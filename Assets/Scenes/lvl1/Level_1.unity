@@ -1153,6 +1153,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 2658567659684983219, guid: 1b3efb7561eb21e4291e8bec9d539e8f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2658567659684983219, guid: 1b3efb7561eb21e4291e8bec9d539e8f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8878088185706026076, guid: 32ddbdea24a14a345b2fef0e0f9bd4de, type: 3}
+    - target: {fileID: 6291366793461610118, guid: 1b3efb7561eb21e4291e8bec9d539e8f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
