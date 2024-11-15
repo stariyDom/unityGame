@@ -127,17 +127,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 438376342012102731, guid: cd8dd2c26a0ba394db9aa54a61857cfa, type: 3}
+      propertyPath: data.dataString
+      value: UEsDBBQAAAgIAAAYIex8UVNNegIAADMFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMzoWxjQNJb60hpIckTGgnF1+EtcYaZMkjyQGS4b93JX+WnhBvd9++fVr5i3BpKsis0hvN2bNiQL5PiDuTb5Mh+ARnelByxz+hy3nnzBYuifqcN2q5Qjx0ZUaVYDXPfsiDcMkBgrXkudLlmh0gUcYahHMqDGBIK+uqJUJfE3LGn+mDK7ngKVq60yeeHoLJFY8ZSAt6SI3mwewuDMJw2VYswln8cH8/X9y1hdFsOV9G0fxuPQ2WnqOWmaBlBcwNNFDd902bVhJHbTOCWex6KyG4aZUSe6m8EwmtTI1zYgLjFCf38sLZHIEC+KGwjnJc/prnBmxrjKaXFddoYcNLfqrG15KaY6Ptg4radVrEXlbD+fxfeBr6cK5V+dS1DQPXwhY8O77RS0aNHfk+hlcj5d6hExVHuhfwXoB8URutaskwaHXtSmsD0Wr420+WFJAdB7yRegPW1WB553h3yW6Gqx/+nAhe7nvrEdgJ5Q33uwEaL+cXCvabY1oKRJ2KPwZ+08N4xdrAI9fGYqidUjp5e1Vrl0rW3jM3TW0TpSV4uBVdgaTCXrZIY29v8CY2ansTeaTuMbXN21j3Rm5KPDzkB8FNaKtO/WWZQp2ewRSvtRVcwiDaBV7Qp0RJ2SzY2JOubFfrnGajskPN2b+rRfZszxYsiMN4zhY5y6dxEMdLWGRBHuRZTCPid49LnJOKbSO0tQdvTQ7kEves+8ZMNppWftmZpqcN/yzVyHIuc7XLNIB8bRh64aCxCT5MtmYcDdqBtVz6+yZfKREqOwJLe6LUT7o+W03TgSUlFf9Q1iEpSfxHJSUO7nd5q+GDw8k178iu5PoXUEsDBBQAAAgIAAAYIewTPb78bQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrRSUkpSilmKgYmhiXGKWVpKmq6JgYmJeapZskGaQVqySaKRUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAAAYIex8UVNNegIAADMFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAYIewTPb78bQAAAHgAAAAJACQAAAAAAAAAAAAAAMcCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAfwMAAAAA
+      objectReference: {fileID: 0}
     - target: {fileID: 4270733872386740549, guid: cd8dd2c26a0ba394db9aa54a61857cfa, type: 3}
       propertyPath: m_Name
       value: A_
       objectReference: {fileID: 0}
     - target: {fileID: 6021325576365777976, guid: cd8dd2c26a0ba394db9aa54a61857cfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 213.65596
+      value: 211.1
       objectReference: {fileID: 0}
     - target: {fileID: 6021325576365777976, guid: cd8dd2c26a0ba394db9aa54a61857cfa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.52112
+      value: 61.4
       objectReference: {fileID: 0}
     - target: {fileID: 6021325576365777976, guid: cd8dd2c26a0ba394db9aa54a61857cfa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -294,6 +298,135 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10ceba23143b1444eb5a138abe682324, type: 3}
+--- !u!1 &730085897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 730085899}
+  - component: {fileID: 730085898}
+  m_Layer: 0
+  m_Name: music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &730085898
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730085897}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 6469762c68e5a0b49b97815593e741bf, type: 3}
+  m_Resource: {fileID: 8300000, guid: 6469762c68e5a0b49b97815593e741bf, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &730085899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730085897}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 229.1752, y: 58.63824, z: -0.43162364}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755105188 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 443904461511076862, guid: fd4db486a63e1b843844585c707a2ce7, type: 3}
@@ -8013,3 +8146,4 @@ SceneRoots:
   - {fileID: 1321184422}
   - {fileID: 716109983}
   - {fileID: 20639872}
+  - {fileID: 730085899}
